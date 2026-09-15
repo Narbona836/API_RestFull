@@ -22,7 +22,7 @@ describe('Atualizar dispositivos', () => {
     }
     cy.request({
       method: 'POST',
-      url: 'https://api.restful-api.dev/objects/',
+      url: 'objects/',
       failOnStatusCode: false,
       body: body
     }).as('postResponseResult')
@@ -35,7 +35,7 @@ describe('Atualizar dispositivos', () => {
 
 cy.request({
         method: 'PUT',
-        url: `https://api.restful-api.dev/objects/${response.body.id}`,
+        url: `objects/${response.body.id}`,
         failOnStatusCode: false,
         body: updatedBody
         

@@ -45,7 +45,7 @@ cy.request({
   it('Deletar um  dispositivo inexistente', () => {
   cy.request({
         method: 'DELETE',
-        url: `https://api.restful-api.dev/objects/${idInesistente}`,
+        url: `objects/${idInesistente}`,
         failOnStatusCode: false
 }).as('deleteResponseResult')
       

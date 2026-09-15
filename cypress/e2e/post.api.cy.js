@@ -12,12 +12,12 @@ describe('Cadastro de dispositivos', () => {
     }
     cy.request({
       method: 'POST',
-      url: 'https://api.restful-api.dev/objects/',
+      url: 'objects/',
       failOnStatusCode: false,
       body: body
     }).as('postResponseResult')
 
-    get('@postResponseResult').then((response) => {
+    cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
       expect(response.status).equal(200)
       expect(response.body.name).equal(body.name)
@@ -32,7 +32,7 @@ describe('Cadastro de dispositivos', () => {
     
     cy.request({
       method: 'POST',
-      url: 'https://api.restful-api.dev/objects/',
+      url: 'objects/',
       failOnStatusCode: false,
       
     }).as('postResponseResult')
@@ -58,7 +58,7 @@ describe('Cadastro de dispositivos', () => {
     
     cy.request({
       method: 'POST',
-      url: 'https://api.restful-api.dev/objects/',
+      url: 'objects/',
       failOnStatusCode: false,
       body: body
     }).as('postResponseResult')
@@ -74,7 +74,7 @@ describe('Cadastro de dispositivos', () => {
     })
   }) 
 
-  it.only('Cadastrar dispositivo sem year', () => {
+  it('Cadastrar dispositivo sem year', () => {
     const body = {
       "name": "xiaome redime 9S",
       "data": {
@@ -86,7 +86,7 @@ describe('Cadastro de dispositivos', () => {
     
     cy.request({
       method: 'POST',
-      url: 'https://api.restful-api.dev/objects/',
+      url: 'objects/',
       failOnStatusCode: false,
       body: body
     }).as('postResponseResult')
@@ -113,7 +113,7 @@ describe('Cadastro de dispositivos', () => {
     
     cy.request({
       method: 'POST',
-      url: 'https://api.restful-api.dev/objects',
+      url: 'objects/',
       failOnStatusCode: false,
       body: body
     }).as('postResponseResult')

@@ -4,7 +4,7 @@ describe('Cadastro de dispositivos', () => {
     const deviceId = '7'
     cy.request({
       method: 'GET',
-      url: `https://api.restful-api.dev/objects/${deviceId}`,
+      url: `objects/${deviceId}`,
       failOnStatusCode: false
     }).as('getDeviceResult')
 
