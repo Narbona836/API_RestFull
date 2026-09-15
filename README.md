@@ -1,96 +1,109 @@
-# API RestFull — Testes Automatizados com Cypress
+# API REST — Testes Automatizados com Cypress
 
-Suíte de testes automatizados de API construída com **Cypress**, cobrindo o ciclo CRUD completo (`GET`, `POST`, `PUT`, `DELETE`) contra a API pública [restful-api.dev](https://restful-api.dev/), usada como ambiente de prática de testes de API.
+Projeto de **automação de testes de API REST** desenvolvido com **Cypress e JavaScript**, utilizando a API pública [RESTful API](https://restful-api.dev/) como ambiente de testes.
+
+A suíte foi desenvolvida com foco na validação de operações HTTP, comportamento dos endpoints, códigos de status e conteúdo das respostas, contemplando operações do ciclo **CRUD**.
+
+---
 
 ## 🎯 Objetivo
 
-Validar o comportamento do recurso `/objects` (dispositivos) em cenários de:
+O objetivo do projeto é aplicar conceitos de **QA Automation e API Testing** na validação do endpoint `/objects`, simulando diferentes comportamentos de uma API REST.
 
-- Consulta de um recurso específico
-- Cadastro com dados válidos e cenários de borda (campos ausentes/vazios)
-- Atualização completa de um recurso
-- Exclusão de um recurso existente e de um inexistente
+A suíte contempla:
 
-## 🧰 Tecnologias
+- Validação de consultas de dispositivos;
+- Cadastro de dispositivos;
+- Validação de cenários com dados ausentes;
+- Atualização de dispositivos;
+- Exclusão de dispositivos;
+- Validação de recursos inexistentes;
+- Validação de códigos HTTP;
+- Validação do corpo das respostas;
+- Criação de dados durante a execução dos testes;
+- Uso de `cy.request()` para automação de APIs.
 
-- [Cypress](https://www.cypress.io/) `^16.0.0`
-- JavaScript
-- `cy.request()` para chamadas HTTP diretas (testes de API, sem interface)
+---
 
-## 📁 Estrutura do projeto
+## 🧪 Cobertura da Automação
 
-```
+A automação está organizada de acordo com os principais métodos HTTP utilizados pela API.
+
+| Método | Endpoint | Cobertura |
+|---|---|---|
+| `GET` | `/objects/{id}` | Consulta de dispositivo específico |
+| `POST` | `/objects` | Cadastro de dispositivo |
+| `POST` | `/objects` | Validação de requisição sem corpo |
+| `POST` | `/objects` | Cadastro com nome vazio |
+| `POST` | `/objects` | Cadastro sem campo `year` |
+| `POST` | `/objects` | Cadastro sem campo `price` |
+| `PUT` | `/objects/{id}` | Atualização completa de dispositivo |
+| `DELETE` | `/objects/{id}` | Exclusão de dispositivo existente |
+| `DELETE` | `/objects/{id}` | Tentativa de exclusão de dispositivo inexistente |
+
+### Validações realizadas
+
+Os testes não se limitam à validação do status HTTP.
+
+Também são realizadas asserções sobre:
+
+- `status code`;
+- `id`;
+- `name`;
+- `year`;
+- `price`;
+- `CPU model`;
+- `Hard disk size`;
+- mensagens de erro;
+- mensagens de confirmação da API;
+- estrutura do objeto retornado.
+
+---
+
+## 🛠️ Tecnologias e Ferramentas
+
+- **JavaScript**
+- **Cypress 16**
+- **Node.js**
+- **npm**
+- **Git / GitHub**
+- **REST API**
+- **HTTP / JSON**
+
+### Principais recursos do Cypress utilizados
+
+- `cy.request()`
+- `cy.get()`
+- Aliases com `.as()`
+- Assertions com `expect()`
+- `failOnStatusCode: false`
+- `baseUrl`
+- Cypress Test Runner
+- Execução headless
+
+---
+
+## 🏗️ Estrutura do Projeto
+
+```text
 API_RestFull-main/
+│
 ├── cypress/
+│   │
 │   ├── e2e/
-│   │   ├── get.api.cy.js      # GET /objects/{id}
-│   │   ├── post.api.cy.js     # POST /objects (casos válidos e de borda)
-│   │   ├── put.api.cy.js      # PUT /objects/{id}
-│   │   └── delete.api.cy.js   # DELETE /objects/{id}
+│   │   ├── get.api.cy.js
+│   │   ├── post.api.cy.js
+│   │   ├── put.api.cy.js
+│   │   └── delete.api.cy.js
+│   │
 │   ├── fixtures/
-│   │   └── example.json       # fixture padrão do Cypress (não utilizada nos specs)
+│   │   └── example.json
+│   │
 │   └── support/
-│       ├── commands.js        # comandos customizados (não utilizados ainda)
+│       ├── commands.js
 │       └── e2e.js
+│
 ├── cypress.config.js
 ├── package.json
-└── package-lock.json
-```
-
-## ✅ Cobertura de testes
-
-| Spec | Cenários cobertos |
-|---|---|
-| `get.api.cy.js` | Buscar dispositivo específico por ID e validar corpo da resposta |
-| `post.api.cy.js` | Cadastrar dispositivo válido; sem corpo; com nome vazio; sem `year`; sem `price` |
-| `put.api.cy.js` | Criar um dispositivo e em seguida atualizá-lo por completo (`PUT`) |
-| `delete.api.cy.js` | Criar e excluir um dispositivo existente; tentar excluir um ID inexistente (`404`) |
-
-## 🔧 Pré-requisitos
-
-- [Node.js](https://nodejs.org/) instalado (recomendado LTS)
-- npm
-
-## 📦 Instalação
-
-```bash
-git clone <url-do-repositorio>
-cd API_RestFull-main
-npm install
-```
-
-## ▶️ Como executar os testes
-
-O `package.json` ainda não possui um script `test` configurado, então rode o Cypress diretamente:
-
-```bash
-# Interface interativa (Test Runner)
-npx cypress open
-
-# Modo headless (linha de comando)
-npx cypress run
-```
-
-> 💡 Sugestão: adicionar ao `package.json` os scripts abaixo para facilitar a execução:
-> ```json
-> "scripts": {
->   "test": "cypress run",
->   "test:open": "cypress open"
-> }
-> ```
-
-## ⚠️ Limitações conhecidas
-
-- **Cota da API pública:** a `restful-api.dev` limita o uso da API pública a **50 requisições por dia por usuário/IP**, resetando a cada 24h. Ao atingir o limite, requisições de escrita (`POST`/`PUT`/`DELETE`) podem passar a retornar `405` em vez do corpo esperado — não é falha do teste, é o servidor bloqueando por cota. Evite rodar a suíte completa repetidamente em um curto intervalo de tempo.
-
-## 🗺️ Possíveis melhorias futuras
-
-- [ ] Migrar URLs e IDs fixos para variáveis de ambiente / `cypress.config.js` (`baseUrl`)
-- [ ] Criar fixtures reutilizáveis para os payloads de dispositivo
-- [ ] Adicionar comandos customizados (ex: `cy.criarDispositivo()`, `cy.excluirDispositivo()`) para reduzir repetição entre specs
-- [ ] Configurar scripts de execução no `package.json`
-- [ ] Integrar execução em pipeline de CI (GitHub Actions)
-
-## 👤 Autor
-
-Willian — QA Automation, com foco em testes de API (Cypress, Playwright, Robot Framework, Supertest).
+├── package-lock.json
+└── README.md
