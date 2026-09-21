@@ -10,7 +10,106 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+
+Cypress.Commands.add('cadastrarDispositivoEspecifico', (deviceId) => { 
+    cy.request({
+    method: 'GET',
+    url: `objects/${deviceId}`,
+    failOnStatusCode: false
+}).as('getDeviceResult')
+
+})
+
+Cypress.Commands.add('cadastrarDispositivo', (body) => { 
+cy.request({
+    method: 'POST',
+    url: 'objects/',
+    failOnStatusCode: false,
+    body: body
+}).as('postResponseResult')
+
+})
+
+Cypress.Commands.add('cadastrarDispositivoSemDados', (body) => { 
+cy.request({
+    method: 'POST',
+    url: 'objects/',
+    failOnStatusCode: false,
+    body: body
+}).as('postResponseResult')
+})
+
+Cypress.Commands.add('cadastrarDispositivoSemNome', (body) => {
+    cy.request({
+        method: 'POST',
+        url: 'objects/',
+        failOnStatusCode: false,
+        body: body
+    }).as('postResponseResult')
+})
+
+Cypress.Commands.add('cadastrarDispositivoSemYear', (body) => {
+    cy.request({
+    method: 'POST',
+    url: 'objects/',
+    failOnStatusCode: false,
+    body: body
+    }).as('postResponseResult')
+})
+
+Cypress.Commands.add('cadastrarDispositivoSemPrice', (body) => {
+    cy.request({
+        method: 'POST',
+        url: 'objects/',
+        failOnStatusCode: false,
+        body: body
+    }).as('postResponseResult')
+})
+
+Cypress.Commands.add('criarDispositivoParaUpdate', (body) => {
+    cy.request({
+    method: 'POST',
+    url: 'objects/',
+    failOnStatusCode: false,
+    body: body
+    }).as('postResponseResult')
+})
+
+Cypress.Commands.add('atualizarDispositivo', (body) => {
+cy.request({
+        method: 'PUT',
+        url: `objects/${response.body.id}`,
+        failOnStatusCode: false,
+        body: updatedBody
+        
+    }).as('putResponseResult')
+})
+
+Cypress.Commands.add('criarDisposiivoParaDeletar ', (body) => {
+    cy.request({
+    method: 'POST',
+    url: '/objects/',
+    failOnStatusCode: false,
+    body: body
+    }).as('postResponseResult')
+})
+
+Cypress.Commands.add('deletarDispositivoCriado ', (deviceId) => {
+    cy.request({
+        method: 'DELETE',
+        url: `/objects/${response.body.id}`,
+        failOnStatusCode: false
+}).as('deleteResponseResult')
+})
+
+Cypress.Commands.add('deletarDispositivoInexistente ', (idInesistente) => {
+    cy.request({
+        method: 'DELETE',
+        url: `objects/${idInesistente}`,
+        failOnStatusCode: false
+}).as('deleteResponseResult')
+})
+
 //
 //
 // -- This is a child command --

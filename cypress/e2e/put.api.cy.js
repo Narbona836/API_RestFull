@@ -20,12 +20,7 @@ describe('Atualizar dispositivos', () => {
             "Hard disk size": "1 TB"
           }
     }
-    cy.request({
-      method: 'POST',
-      url: 'objects/',
-      failOnStatusCode: false,
-      body: body
-    }).as('postResponseResult')
+    cy.criarDispositivoParaUpdate(body)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
@@ -33,13 +28,7 @@ describe('Atualizar dispositivos', () => {
 
 
 
-cy.request({
-        method: 'PUT',
-        url: `objects/${response.body.id}`,
-        failOnStatusCode: false,
-        body: updatedBody
-        
-      }).as('putResponseResult')
+cy.atualizarDispositivo(updatedBody)
 
       cy.get('@putResponseResult').then((responsePut) => {
         console.log('Status:', responsePut.status)

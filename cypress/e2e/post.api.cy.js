@@ -10,12 +10,7 @@ describe('Cadastro de dispositivos', () => {
         "Hard disk size": "1 TB"
       }
     }
-    cy.request({
-      method: 'POST',
-      url: 'objects/',
-      failOnStatusCode: false,
-      body: body
-    }).as('postResponseResult')
+    cy.cadastrarDispositivo(body)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
@@ -29,13 +24,8 @@ describe('Cadastro de dispositivos', () => {
   })  
 
   it('Cadastrar dispositivo sem dados', () => {
-    
-    cy.request({
-      method: 'POST',
-      url: 'objects/',
-      failOnStatusCode: false,
-      
-    }).as('postResponseResult')
+    const body = {}
+    cy.cadastrarDispositivoSemDados(body)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
@@ -56,12 +46,7 @@ describe('Cadastro de dispositivos', () => {
       }
     }
     
-    cy.request({
-      method: 'POST',
-      url: 'objects/',
-      failOnStatusCode: false,
-      body: body
-    }).as('postResponseResult')
+    cy.cadastrarDispositivoSemNome(body)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
@@ -84,12 +69,7 @@ describe('Cadastro de dispositivos', () => {
       }
     }
     
-    cy.request({
-      method: 'POST',
-      url: 'objects/',
-      failOnStatusCode: false,
-      body: body
-    }).as('postResponseResult')
+    cy.cadastrarDispositivoSemYear(body)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
@@ -111,12 +91,7 @@ describe('Cadastro de dispositivos', () => {
       }
     }
     
-    cy.request({
-      method: 'POST',
-      url: 'objects/',
-      failOnStatusCode: false,
-      body: body
-    }).as('postResponseResult')
+    cy.cadastrarDispositivoSemPrice(body)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)

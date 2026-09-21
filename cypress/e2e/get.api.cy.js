@@ -2,11 +2,7 @@ describe('Cadastro de dispositivos', () => {
 
   it('Cadastrar dispositivo especifico ', () => {
     const deviceId = '7'
-    cy.request({
-      method: 'GET',
-      url: `objects/${deviceId}`,
-      failOnStatusCode: false
-    }).as('getDeviceResult')
+    cy.cadastrarDispositivoEspecifico(deviceId)
 
     cy.get('@getDeviceResult').then((response) => {
     console.log('Status:', response.status)
