@@ -1,106 +1,74 @@
 describe('Cadastro de dispositivos', () => {
 
   it('Cadastrar dispositivo', () => {
-    const body = {
-      "name": "xiaome redime 9S",
-      "data": {
-        "year": 2026,
-        "price": 1500.00,
-        "CPU model": "Intel Core i9",
-        "Hard disk size": "1 TB"
-      }
-    }
-    cy.cadastrarDispositivo(body)
+    const cadastroDispositivoBody = require('../fixtures/cadastrarDispositivo_body.json')
+    cy.cadastrarDispositivo(cadastroDispositivoBody)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
       expect(response.status).equal(200)
-      expect(response.body.name).equal(body.name)
-      expect(response.body.data.year).equal(body.data.year)
-      expect(response.body.data.price).equal(body.data.price)
-      expect(response.body.data["CPU model"]).equal(body.data["CPU model"])
-      expect(response.body.data["Hard disk size"]).equal(body.data["Hard disk size"])
+      expect(response.body.name).equal(cadastroDispositivoBody.name)
+      expect(response.body.data.year).equal(cadastroDispositivoBody.data.year)
+      expect(response.body.data.price).equal(cadastroDispositivoBody.data.price)
+      expect(response.body.data["CPU model"]).equal(cadastroDispositivoBody.data["CPU model"])
+      expect(response.body.data["Hard disk size"]).equal(cadastroDispositivoBody.data["Hard disk size"])
     })
   })  
 
   it('Cadastrar dispositivo sem dados', () => {
-    const body = {}
-    cy.cadastrarDispositivoSemDados(body)
+    cy.cadastrarDispositivoSemDados()
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
       expect(response.status).equal(400)
       expect(response.body.error).equal( "Request body is missing")
-
     })
   })  
 
   it('Cadastrar dispositivo sem nome', () => {
-    const body = {
-      "name": " ",
-      "data": {
-        "year": 2026,
-        "price": 1500.00,
-        "CPU model": "Intel Core i9",
-        "Hard disk size": "1 TB"
-      }
-    }
+    const cadastroDispositivoSemNomeBody = require('../fixtures/cadastrarDispositivoSemNome_body.json')
     
-    cy.cadastrarDispositivoSemNome(body)
+    cy.cadastrarDispositivoSemNome(cadastroDispositivoSemNomeBody)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
       expect(response.status).equal(200)
-      expect(response.body.name).equal(body.name)
-      expect(response.body.data.year).equal(body.data.year)
-      expect(response.body.data.price).equal(body.data.price)
-      expect(response.body.data["CPU model"]).equal(body.data["CPU model"])
-      expect(response.body.data["Hard disk size"]).equal(body.data["Hard disk size"])
+      expect(response.body.name).equal(cadastroDispositivoSemNomeBody.name)
+      expect(response.body.data.year).equal(cadastroDispositivoSemNomeBody.data.year)
+      expect(response.body.data.price).equal(cadastroDispositivoSemNomeBody.data.price)
+      expect(response.body.data["CPU model"]).equal(cadastroDispositivoSemNomeBody.data["CPU model"])
+      expect(response.body.data["Hard disk size"]).equal(cadastroDispositivoSemNomeBody.data["Hard disk size"])
     })
   }) 
 
   it('Cadastrar dispositivo sem year', () => {
-    const body = {
-      "name": "xiaome redime 9S",
-      "data": {
-        "price": 1500.00,
-        "CPU model": "Intel Core i9",
-        "Hard disk size": "1 TB"
-      }
-    }
+    const cadastroDispositivoSemYearBody = require('../fixtures/cadastraDispositivoSemData_body.json')
     
-    cy.cadastrarDispositivoSemYear(body)
+    cy.cadastrarDispositivoSemYear(cadastroDispositivoSemYearBody)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
       expect(response.status).equal(200)
-      expect(response.body.name).equal(body.name)
-      expect(response.body.data.price).equal(body.data.price)
-      expect(response.body.data["CPU model"]).equal(body.data["CPU model"])
-      expect(response.body.data["Hard disk size"]).equal(body.data["Hard disk size"])
+      expect(response.body.name).equal(cadastroDispositivoSemYearBody.name)
+      expect(response.body.data.price).equal(cadastroDispositivoSemYearBody.data.price)
+      expect(response.body.data["CPU model"]).equal(cadastroDispositivoSemYearBody.data["CPU model"])
+      expect(response.body.data["Hard disk size"]).equal(cadastroDispositivoSemYearBody.data["Hard disk size"])
     })
   }) 
 
   it('Cadastrar dispositivo sem price', () => {
-    const body = {
-      "name": "xiaome redime 9S",
-      "data": {
-        "year": 2026,
-        "CPU model": "Intel Core i9",
-        "Hard disk size": "1 TB"
-      }
-    }
+    const body = require('../fixtures/cadastrarDispositivoSemPrice_body.json')
     
-    cy.cadastrarDispositivoSemPrice(body)
+    cy.cadastrarDispositivoSemPrice(cadastroDispositivoSemPriceBody)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
       expect(response.status).equal(200)
-      expect(response.body.name).equal(body.name)
-      expect(response.body.data.year).equal(body.data.year)
-      expect(response.body.data.price).equal(body.data.price)
-      expect(response.body.data["CPU model"]).equal(body.data["CPU model"])
-      expect(response.body.data["Hard disk size"]).equal(body.data["Hard disk size"])
+      expect(response.body.name).equal(cadastroDispositivoSemPriceBody.name)
+      expect(response.body.data.year).equal(cadastroDispositivoSemPriceBody.data.year)
+      expect(response.body.data.price).equal(cadastroDispositivoSemPriceBody.data.price)
+      expect(response.body.data["CPU model"]).equal(cadastroDispositivoSemPriceBody.data["CPU model"])
+      expect(response.body.data["Hard disk size"]).equal(cadastroDispositivoSemPriceBody.data["Hard disk size"])
     })
   }) 
 })

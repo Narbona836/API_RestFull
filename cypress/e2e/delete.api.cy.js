@@ -2,16 +2,8 @@ describe('Deletar dispositivos', () => {
 
   it('Deletar um  dispositivo', () => {
     // Criando um dispositivo para deletar
-    const body = {
-      "name": "xiaome redime 9S",
-      "data": {
-        "year": 2026,
-        "price": 1500.00,
-        "CPU model": "Intel Core i9",
-        "Hard disk size": "1 TB"
-      }
-    }
-    cy.criarDisposiivoParaDeletar(body)
+    const deletarDispositivoBody = require('../fixtures/cadastrarDispositivo_body.json')
+    cy.criarDisposiivoParaDeletar(deletarDispositivoBody)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)

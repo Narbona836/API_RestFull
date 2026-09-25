@@ -30,12 +30,11 @@ cy.request({
 
 })
 
-Cypress.Commands.add('cadastrarDispositivoSemDados', (body) => { 
+Cypress.Commands.add('cadastrarDispositivoSemDados', () => { 
 cy.request({
     method: 'POST',
     url: 'objects/',
     failOnStatusCode: false,
-    body: body
 }).as('postResponseResult')
 })
 
@@ -75,17 +74,17 @@ Cypress.Commands.add('criarDispositivoParaUpdate', (body) => {
     }).as('postResponseResult')
 })
 
-Cypress.Commands.add('atualizarDispositivo', (body) => {
+Cypress.Commands.add('atualizarDispositivo', (id, body) => {
 cy.request({
         method: 'PUT',
-        url: `objects/${response.body.id}`,
+        url: `objects/${id}`,
         failOnStatusCode: false,
-        body: updatedBody
+        body: body
         
     }).as('putResponseResult')
 })
 
-Cypress.Commands.add('criarDisposiivoParaDeletar ', (body) => {
+Cypress.Commands.add('criarDisposiivoParaDeletar', (body) => {
     cy.request({
     method: 'POST',
     url: '/objects/',
@@ -94,15 +93,15 @@ Cypress.Commands.add('criarDisposiivoParaDeletar ', (body) => {
     }).as('postResponseResult')
 })
 
-Cypress.Commands.add('deletarDispositivoCriado ', (deviceId) => {
+Cypress.Commands.add('deletarDispositivoCriado', (deviceId) => {
     cy.request({
         method: 'DELETE',
-        url: `/objects/${response.body.id}`,
+        url: `/objects/${deviceId}`,
         failOnStatusCode: false
 }).as('deleteResponseResult')
 })
 
-Cypress.Commands.add('deletarDispositivoInexistente ', (idInesistente) => {
+Cypress.Commands.add('deletarDispositivoInexistente', (idInesistente) => {
     cy.request({
         method: 'DELETE',
         url: `objects/${idInesistente}`,
