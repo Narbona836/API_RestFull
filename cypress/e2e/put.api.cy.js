@@ -1,6 +1,6 @@
 describe('Atualizar dispositivos', () => {
 
-  it('Atualizar um  dispositivo', () => {
+  it('Atualizar um dispositivo', () => {
     // Criando um dispositivo para atualizar
     const cadastrarDispositivo = require('../fixtures/cadastrarDispositivo_body.json')
     const atualizarDispositivoBody = require('../fixtures/atualizarDispositivo_Body.json')

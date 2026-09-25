@@ -1,6 +1,6 @@
 describe('Deletar dispositivos', () => {
 
-  it('Deletar um  dispositivo', () => {
+  it('Deletar um dispositivo', () => {
     // Criando um dispositivo para deletar
     const deletarDispositivoBody = require('../fixtures/cadastrarDispositivo_body.json')
     cy.criarDisposiivoParaDeletar(deletarDispositivoBody)

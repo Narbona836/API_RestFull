@@ -42,7 +42,7 @@ describe('Cadastro de dispositivos', () => {
   }) 
 
   it('Cadastrar dispositivo sem year', () => {
-    const cadastroDispositivoSemYearBody = require('../fixtures/cadastraDispositivoSemData_body.json')
+    const cadastroDispositivoSemYearBody = require('../fixtures/cadastraDispositivoSemYear_body.json')
     
     cy.cadastrarDispositivoSemYear(cadastroDispositivoSemYearBody)
 
@@ -57,18 +57,18 @@ describe('Cadastro de dispositivos', () => {
   }) 
 
   it('Cadastrar dispositivo sem price', () => {
-    const body = require('../fixtures/cadastrarDispositivoSemPrice_body.json')
+    const cadastrarDispositivoSemPrice = require('../fixtures/cadastrarDispositivoSemPrice_body.json')
     
-    cy.cadastrarDispositivoSemPrice(cadastroDispositivoSemPriceBody)
+    cy.cadastrarDispositivoSemPrice(cadastrarDispositivoSemPrice)
 
     cy.get('@postResponseResult').then((response) => {
       console.log('Status:', response.status)
-      expect(response.status).equal(200)
-      expect(response.body.name).equal(cadastroDispositivoSemPriceBody.name)
-      expect(response.body.data.year).equal(cadastroDispositivoSemPriceBody.data.year)
-      expect(response.body.data.price).equal(cadastroDispositivoSemPriceBody.data.price)
-      expect(response.body.data["CPU model"]).equal(cadastroDispositivoSemPriceBody.data["CPU model"])
-      expect(response.body.data["Hard disk size"]).equal(cadastroDispositivoSemPriceBody.data["Hard disk size"])
+      expect(response.body.status).equal(200)
+      expect(response.body.name).equal(cadastrarDispositivoSemPrice.body.name)
+      expect(response.body.data.year).equal(cadastrarDispositivoSemPrice.data.year)
+      expect(response.body.data.price).equal(cadastrarDispositivoSemPrice.data.price)
+      expect(response.body.data["CPU model"]).equal(cadastrarDispositivoSemPrice.body.data["CPU model"])
+      expect(response.body.data["Hard disk size"]).equal(cadastrarDispositivoSemPrice.body.data["Hard disk size"])
     })
   }) 
 })
