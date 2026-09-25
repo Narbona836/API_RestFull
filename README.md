@@ -1,89 +1,97 @@
-# API REST — Testes Automatizados com Cypress
+# 🧪 API REST Automation — Cypress
 
-Projeto de **automação de testes de API REST** desenvolvido com **Cypress e JavaScript**, utilizando a API pública [RESTful API](https://restful-api.dev/) como ambiente de testes.
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?logo=javascript)
+![Cypress](https://img.shields.io/badge/Cypress-16.x-69D3A7?logo=cypress)
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-green?logo=node.js)
+![API Testing](https://img.shields.io/badge/API-Testing-blue)
+![REST](https://img.shields.io/badge/API-REST-orange)
+![QA Automation](https://img.shields.io/badge/QA-Automation-purple)
 
-A suíte foi desenvolvida com foco na validação de operações HTTP, comportamento dos endpoints, códigos de status e conteúdo das respostas, contemplando operações do ciclo **CRUD**.
+Suíte de **testes automatizados de API REST** desenvolvida com **Cypress e JavaScript**, utilizando a [RESTful API](https://restful-api.dev/) como ambiente de testes.
+
+O projeto foi desenvolvido com foco em **QA Automation**, explorando requisições HTTP, validação de status codes, conteúdo das respostas, cenários positivos e negativos e operações do ciclo **CRUD**.
 
 ---
 
 ## 🎯 Objetivo
 
-O objetivo do projeto é aplicar conceitos de **QA Automation e API Testing** na validação do endpoint `/objects`, simulando diferentes comportamentos de uma API REST.
+O objetivo deste projeto é demonstrar, na prática, a aplicação de conceitos de **API Testing e Test Automation** utilizando Cypress.
 
-A suíte contempla:
+A automação valida diferentes comportamentos do endpoint `/objects`, incluindo:
 
-- Validação de consultas de dispositivos;
+- Consulta de dispositivos;
 - Cadastro de dispositivos;
-- Validação de cenários com dados ausentes;
+- Validação de requisições inválidas;
 - Atualização de dispositivos;
 - Exclusão de dispositivos;
-- Validação de recursos inexistentes;
+- Tentativa de exclusão de recursos inexistentes;
 - Validação de códigos HTTP;
 - Validação do corpo das respostas;
-- Criação de dados durante a execução dos testes;
-- Uso de `cy.request()` para automação de APIs.
+- Validação de mensagens retornadas pela API;
+- Criação de dados durante a execução dos testes.
 
 ---
 
-## 🧪 Cobertura da Automação
+## 🧪 Cobertura dos Testes
 
-A automação está organizada de acordo com os principais métodos HTTP utilizados pela API.
+Atualmente a suíte possui **8 casos de teste automatizados**.
 
-| Método | Endpoint | Cobertura |
-|---|---|---|
-| `GET` | `/objects/{id}` | Consulta de dispositivo específico |
-| `POST` | `/objects` | Cadastro de dispositivo |
-| `POST` | `/objects` | Validação de requisição sem corpo |
-| `POST` | `/objects` | Cadastro com nome vazio |
-| `POST` | `/objects` | Cadastro sem campo `year` |
-| `POST` | `/objects` | Cadastro sem campo `price` |
-| `PUT` | `/objects/{id}` | Atualização completa de dispositivo |
-| `DELETE` | `/objects/{id}` | Exclusão de dispositivo existente |
-| `DELETE` | `/objects/{id}` | Tentativa de exclusão de dispositivo inexistente |
+| Método | Endpoint | Cenário | Tipo |
+|---|---|---|---|
+| `GET` | `/objects/{id}` | Consultar dispositivo específico | Positivo |
+| `POST` | `/objects` | Cadastrar dispositivo | Positivo |
+| `POST` | `/objects` | Cadastrar sem corpo | Negativo |
+| `POST` | `/objects` | Cadastrar sem nome | Validação |
+| `POST` | `/objects` | Cadastrar sem `year` | Validação |
+| `POST` | `/objects` | Cadastrar sem `price` | Validação |
+| `PUT` | `/objects/{id}` | Atualizar dispositivo | Positivo |
+| `DELETE` | `/objects/{id}` | Excluir dispositivo | Positivo |
+| `DELETE` | `/objects/{id}` | Excluir dispositivo inexistente | Negativo |
+
+> **Observação:** a tabela acima apresenta 9 cenários quando todos os cenários presentes nos arquivos são contabilizados. O projeto contém 1 GET + 4 POST + 1 PUT + 2 DELETE = **8 testes automatizados executáveis**; o POST possui quatro cenários no código atual.
+
+---
+
+## 🔍 Estratégia de Testes
+
+A suíte foi estruturada para validar tanto o **comportamento esperado da API** quanto respostas relacionadas a entradas inválidas.
+
+### Cenários positivos
+
+São utilizados para verificar se a API executa corretamente operações esperadas:
+
+- Consulta de dispositivo;
+- Cadastro;
+- Atualização;
+- Exclusão.
+
+### Cenários negativos
+
+São utilizados para verificar como a API responde a situações inválidas ou inexistentes:
+
+- Requisição POST sem body;
+- Exclusão de dispositivo inexistente.
 
 ### Validações realizadas
 
-Os testes não se limitam à validação do status HTTP.
+Os testes verificam diferentes propriedades das respostas:
 
-Também são realizadas asserções sobre:
-
-- `status code`;
-- `id`;
-- `name`;
-- `year`;
-- `price`;
-- `CPU model`;
-- `Hard disk size`;
-- mensagens de erro;
-- mensagens de confirmação da API;
-- estrutura do objeto retornado.
+- HTTP Status Code;
+- ID do recurso;
+- Nome do dispositivo;
+- Ano;
+- Preço;
+- Modelo da CPU;
+- Tamanho do disco;
+- Mensagens de erro;
+- Mensagens de confirmação;
+- Estrutura do objeto retornado.
 
 ---
 
-## 🛠️ Tecnologias e Ferramentas
+# 🏗️ Arquitetura do Projeto
 
-- **JavaScript**
-- **Cypress 16**
-- **Node.js**
-- **npm**
-- **Git / GitHub**
-- **REST API**
-- **HTTP / JSON**
-
-### Principais recursos do Cypress utilizados
-
-- `cy.request()`
-- `cy.get()`
-- Aliases com `.as()`
-- Assertions com `expect()`
-- `failOnStatusCode: false`
-- `baseUrl`
-- Cypress Test Runner
-- Execução headless
-
----
-
-## 🏗️ Estrutura do Projeto
+A automação utiliza **Custom Commands** para centralizar as requisições HTTP e **Fixtures** para armazenar dados de teste.
 
 ```text
 API_RestFull-main/
@@ -97,7 +105,12 @@ API_RestFull-main/
 │   │   └── delete.api.cy.js
 │   │
 │   ├── fixtures/
-│   │   └── example.json
+│   │   ├── atualizarDispositivo_Body.json
+│   │   ├── cadastraDispositivoSemYear_body.json
+│   │   ├── cadastrarDispositivo_body.json
+│   │   ├── cadastrarDispositivoSemNome_body.json
+│   │   ├── cadastrarDispositivoSemPrice_body.json
+│   │   └── deletarDispositivo_body.json
 │   │
 │   └── support/
 │       ├── commands.js
